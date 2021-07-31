@@ -1,13 +1,15 @@
 import { Category } from '../../categories/shared/category.model';
 
 export class Entry {
-  id!: number;
-  name!: string;
-  categoryId!: number;
-  category!: Category;
-  paid!: boolean;
-  date!: string;
-  amount!: string;
-  type!: string;
-  description!: string;
+  constructor(
+    public id?: number,
+    public name?: string,
+    public categoryId?: number,
+    public category?: Category,
+    public paid?: boolean,
+    public date?: string,
+    public amount?: string,
+    public type?: string,
+    public description?: string,
+  ) {}
 }
