@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { ToastrModule } from 'ngx-toastr';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ImMemoryDatabase } from './in-memory-database';
 
@@ -16,6 +17,7 @@ import { ImMemoryDatabase } from './in-memory-database';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
     HttpClientInMemoryWebApiModule.forRoot(ImMemoryDatabase)
   ],
   providers: [],
