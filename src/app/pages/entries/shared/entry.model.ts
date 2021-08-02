@@ -12,4 +12,14 @@ export class Entry {
     public type?: string,
     public description?: string,
   ) {}
+
+  static types = {
+    expense: 'Despesa',
+    renevue: 'Receita'
+  }
+
+  get paidText(): string {
+    return this.paid ? 'Pago' : 'Pendente';
+  }
+
 }
