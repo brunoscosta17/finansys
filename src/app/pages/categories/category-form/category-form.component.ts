@@ -102,7 +102,7 @@ export class CategoryFormComponent implements OnInit {
   private actionsForError(error: any) {
     this.toastr.error('Ocorreu um erro ao processar a sua solicitação!');
     this.submittingForm = false;
-    error.status === 422 ? this.serverErrorMessages = JSON.parse(error._body).errors : this.serverErrorMessages = ['Falha na comunicação com o servidor.', error];
+    error.status === 422 ? this.serverErrorMessages = JSON.parse(error._body).errors : this.serverErrorMessages = [`Status: ${error.status}. ${error.statusText}. Falha na comunicação com o servidor.`];
   }
 
   // PUBLIC METHODS
