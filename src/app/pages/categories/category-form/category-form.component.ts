@@ -23,6 +23,7 @@ export class CategoryFormComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
+    private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
@@ -39,6 +40,7 @@ export class CategoryFormComponent implements OnInit {
   }
 
   // PRIVATE METHODS
+
   private setCurrentAction() {
     this.route.snapshot.url[0].path === 'new' ? this.currentAction = 'new' : this.currentAction = 'edit';
   }
@@ -69,7 +71,45 @@ export class CategoryFormComponent implements OnInit {
 
   private setPageTitle() {
     const categoryName = this.category.name || '';
-    this.currentAction === 'new' ? this.pageTitle = 'Cadastro de Nova Categoria' : this.pageTitle = `Editando Categoria ${categoryName}`;
+    this.currentAction === 'new' ? this.pageTitle = 'Cadastro de Nova Categoria' : this.pageTitle = `Editando Categoria: ${categoryName}`;
+  }
+
+  private createCategory() {
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    this.categoryService.create(category)
+      .subscribe(
+        category => this.actionsForSuccess(category),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private updateCategory() {
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    this.categoryService.update(category)
+      .subscribe(
+        category => this.actionsForSuccess(category),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private actionsForSuccess(category: Category) {
+    this.toastr.success('Solicitação processada com sucesso!');
+    this.router
+      .navigateByUrl('categories', { skipLocationChange: true })
+      .then(() => this.router.navigate(['categories', 'edit', category.id]));
+  }
+
+  private actionsForError(error: any) {
+    this.toastr.error('Ocorreu um erro ao processar a sua solicitação!');
+    this.submittingForm = false;
+    error.status === 422 ? this.serverErrorMessages = JSON.parse(error._body).errors : this.serverErrorMessages = ['Falha na comunicação com o servidor.', error];
+  }
+
+  // PUBLIC METHODS
+
+  submitForm() {
+    this.submittingForm = true;
+    this.currentAction === 'new' ? this.createCategory() : this.updateCategory();
   }
 
 }
