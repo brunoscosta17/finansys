@@ -50,6 +50,11 @@ export class EntryFormComponent implements OnInit {
       id: [null],
       name: [null, [Validators.required, Validators.minLength(3)]],
       description: [null],
+      type: [null, [Validators.required]],
+      value: [null, [Validators.required]],
+      date: [null, [Validators.required]],
+      paid: [null, [Validators.required]],
+      categoryId: [null, [Validators.required]],
     });
   }
 
