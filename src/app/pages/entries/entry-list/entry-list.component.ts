@@ -21,7 +21,6 @@ export class EntryListComponent implements OnInit {
       .subscribe(
         entries => {
           this.entries = entries;
-        console.log(entries);
       },
         error => alert('Erro ao carregar a lista'));
   }

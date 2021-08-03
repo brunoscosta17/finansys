@@ -68,7 +68,6 @@ export class EntryFormComponent implements OnInit {
       name: [null, [Validators.required, Validators.minLength(3)]],
       description: [null],
       type: ['expense', [Validators.required]],
-      value: [null, [Validators.required]],
       amount: [null, [Validators.required]],
       date: [null, [Validators.required]],
       paid: [true, [Validators.required]],
@@ -118,8 +117,8 @@ export class EntryFormComponent implements OnInit {
   private actionsForSuccess(entry: Entry) {
     this.toastr.success('Solicitação processada com sucesso!');
     this.router
-      .navigateByUrl('categories', { skipLocationChange: true })
-      .then(() => this.router.navigate(['categories', 'edit', entry.id]));
+      .navigateByUrl('entries', { skipLocationChange: true })
+      .then(() => this.router.navigate(['entries', 'edit', entry.id]));
   }
 
   private actionsForError(error: any) {
