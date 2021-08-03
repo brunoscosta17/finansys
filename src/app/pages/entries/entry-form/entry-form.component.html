@@ -23,9 +23,12 @@
         <!-- type -->
         <div class="form-group col-md-2 px-2">
           <label for="type">Tipo</label>
+          <!-- <select class="form-select" id="type" formControlName="type">
+            <option *ngFor="let option of typeOptions" [value]="option.value">{{ option.text }}</option>
+          </select> -->
           <select class="form-select" id="type" formControlName="type">
-            <!-- <option value="null">Selecione um tipo</option> -->
-            <option *ngFor="let option of typeOptions" [value]="option.value">{{option.text}}</option>
+            <option value="expense">Despesa</option>
+            <option value="revenue">Receita</option>
           </select>
 
           <div *ngIf="entryForm.get('type')?.invalid && entryForm.get('type')?.touched" class="text-danger">

@@ -116,9 +116,9 @@ export class EntryFormComponent implements OnInit {
 
   private actionsForSuccess(entry: Entry) {
     this.toastr.success('Solicitação processada com sucesso!');
-    this.router
-      .navigateByUrl('entries', { skipLocationChange: true })
-      .then(() => this.router.navigate(['entries', 'edit', entry.id]));
+    this.router.navigate(['entries']);
+    // this.router.navigateByUrl('entries', { skipLocationChange: true })
+    //   .then(() => this.router.navigate(['entries', 'edit', entry.id]));
   }
 
   private actionsForError(error: any) {
@@ -156,14 +156,15 @@ export class EntryFormComponent implements OnInit {
     this.currentAction === 'new' ? this.createEntry() : this.updateEntry();
   }
 
-  get typeOptions(): Array<any> {
-    return Object.entries(Entry.types)
-      .map(([value, text]) => {
+  get typeOptions(): Array<any>{
+    return Object.entries(Entry.types).map(
+      ([value, text]) => {
         return {
           text: text,
           value: value
         }
-      });
+      }
+    )
   }
 
 }
