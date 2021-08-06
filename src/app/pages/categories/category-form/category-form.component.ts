@@ -94,9 +94,10 @@ export class CategoryFormComponent implements OnInit {
 
   private actionsForSuccess(category: Category) {
     this.toastr.success('Solicitação processada com sucesso!');
-    this.router
-      .navigateByUrl('categories', { skipLocationChange: true })
-      .then(() => this.router.navigate(['categories', 'edit', category.id]));
+    this.router.navigate(['categories']);
+    // this.router
+    //   .navigateByUrl('categories', { skipLocationChange: true })
+    //   .then(() => this.router.navigate(['categories', 'edit', category.id]));
   }
 
   private actionsForError(error: any) {

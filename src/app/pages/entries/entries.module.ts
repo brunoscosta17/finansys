@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 
+import { SharedModule } from 'src/app/shared/shared.module';
 import { EntriesRoutingModule } from './entries-routing.module';
 import { EntryListComponent } from './entry-list/entry-list.component';
 import { EntryFormComponent } from './entry-form/entry-form.component';
@@ -11,7 +8,7 @@ import { EntryFormComponent } from './entry-form/entry-form.component';
 import { CalendarModule } from 'primeng/calendar';
 import { IMaskModule } from 'angular-imask';
 
-registerLocaleData(localePt, 'pt')
+// registerLocaleData(localePt, 'pt')
 
 @NgModule({
   declarations: [
@@ -19,8 +16,7 @@ registerLocaleData(localePt, 'pt')
     EntryFormComponent
   ],
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
+    SharedModule,
     EntriesRoutingModule,
     CalendarModule,
     IMaskModule,
