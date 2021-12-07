@@ -21,7 +21,6 @@ export class CategoryListComponent implements OnInit {
       .subscribe(categories => {
         this.categories = categories;
       }, error => alert('Erro ao carregar categorias!'));
-  
   }
 
   deleteCategory(category: Category) {
