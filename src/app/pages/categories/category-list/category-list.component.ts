@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { CategoryService } from '../shared/category.service';
 import { Category } from '../shared/category.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category-list',
@@ -10,7 +11,10 @@ import { Category } from '../shared/category.model';
 })
 export class CategoryListComponent implements OnInit {
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(
+    private categoryService: CategoryService,
+    private toastr: ToastrService
+    ) { }
 
   categories: Category[] = [];
 
@@ -23,11 +27,14 @@ export class CategoryListComponent implements OnInit {
       }, error => alert('Erro ao carregar categorias!'));
   }
 
-  deleteCategory(category: Category) {
+  deleteCategory(category: Category): void {
     this.categoryService.delete(category.id)
       .subscribe(
-        () => this.categories = this.categories.filter(element => element !== category),
-        () => alert('Erro ao tentar excluir!')
+        () => {
+          this.categories = this.categories.filter(element => element !== category);
+          this.toastr.success('Categoria excluida com sucesso!');
+        },
+        () => this.toastr.error('Erro ao tentar excluir categoria!')
       );
   }
 

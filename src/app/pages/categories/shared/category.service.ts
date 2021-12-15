@@ -74,7 +74,7 @@ export class CategoryService {
   }
 
   private handleError(error: any): Observable<any> {
-    console.log("ERRO NA REQUISIÇÃO => ", error);
+    console.log('ERRO NA REQUISIÇÃO => ', error);
     return throwError(error);
   }
 

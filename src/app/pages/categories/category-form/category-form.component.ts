@@ -14,7 +14,7 @@ import { CategoryService } from '../shared/category.service';
 export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   currentAction!: string;
-  categoryForm!: FormGroup;
+  form !: FormGroup;
   pageTitle!: string;
   serverErrorMessages: string[] = [];
   submittingForm = false;
@@ -44,7 +44,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private buildCategoryForm(): void {
-    this.categoryForm = this.formBuilder.group({
+    this.form  = this.formBuilder.group({
       id: [null],
       name: [null, [Validators.required, Validators.minLength(2)]],
       description: [null]
@@ -57,7 +57,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
       this.categoryService.getById(this.id)
         .subscribe(category => {
           this.category = category;
-          this.categoryForm.patchValue(this.category);
+          this.form .patchValue(this.category);
         }, (e) => this.toastr.error(e));
     }
   }
@@ -67,7 +67,57 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
       this.pageTitle = 'Cadastro de nova categoria';
     } else {
       const categoryName = this.category.name || '';
-      this.pageTitle = 'Editando categoria ' + categoryName;
+      this.pageTitle = 'Editando categoria: ' + categoryName;
+    }
+  }
+
+  private createCategory(): void {
+    const category: Category = Object.assign(new Category(), this.form .value);
+    this.categoryService.create(category)
+      .subscribe(
+        // tslint:disable-next-line: no-shadowed-variable
+        category => this.actionsForSuccess(category),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private updateCategory(): void {
+    const category: Category = Object.assign(new Category(), this.form .value);
+    this.categoryService.update(category)
+      .subscribe(
+        // tslint:disable-next-line: no-shadowed-variable
+        category => this.actionsForSuccess(category),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private actionsForSuccess(category: Category): void {
+    if (this.currentAction === 'edit') {
+      this.toastr.success('Categoria atualizada com sucesso!');
+      this.router.navigate(['/categories']);
+    } else {
+      this.toastr.success('Categoria criada com sucesso!');
+      this.router.navigate(['/categories']);
+    }
+  }
+
+  private actionsForError(error: any): void {
+    this.toastr.error('Erro ao salvar categoria!');
+    this.submittingForm = false;
+    if (error.status === 422) {
+      this.serverErrorMessages = JSON.parse(error._body).errors;
+    } else {
+      this.serverErrorMessages = ['Falha na comunicação com o servidor.'];
+    }
+  }
+
+  // tslint:disable-next-line: typedef
+  handleSubmit(): void {
+    this.submittingForm = true;
+    if (this.currentAction === 'new') {
+      this.createCategory();
+    } else {
+      this.updateCategory();
     }
   }
 

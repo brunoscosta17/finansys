@@ -2,19 +2,20 @@
     <ol class="breadcrumb p-3">
         <li class="breadcrumb-item"><a routerLink="/">Home </a></li>
         <li class="breadcrumb-item"><a routerLink="/categories">Categorias </a></li>
-        <li class="breadcrumb-item active">Formulário de categoria</li>
+        <li class="breadcrumb-item active">{{ pageTitle }}</li>
     </ol>
 </nav>
 
 <div class="row mb-4">
     <div class="col-md">
-        <h1 class="h2 border-left pl-2">Formulário de categoria {{ currentAction  }}</h1 >
+        <h1 class="h2 border-left pl-2">{{ pageTitle }}</h1 >
     </div>
     <div class="col-md">
         <a class="btn btn-secondary float-end" routerLink="/categories"><< Voltar</a>
     </div>
 </div>
-<form [formGroup]="categoryForm">
+
+<form [formGroup]="form" (submit)="handleSubmit()">
     <div class="card">
         <div class="card-header">
             Informações sobre a categoria
@@ -24,6 +25,10 @@
                 <div class="form-group col-md-4">
                     <label for="name">Nome</label>
                     <input type="text" name="name" id="name" class="form-control" formControlName="name">
+                    <div class="text-danger" *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+                        <div *ngIf="form.controls['name'].errors?.required">Campo obrigatório!</div>
+                        <div *ngIf="form.controls['name'].errors?.minlength">No mínimo 2 caracteres!</div>
+                    </div>
                 </div>
                 <div class="form-group col-md-8">
                     <label for="description">Descrição</label>
