@@ -37,5 +37,13 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary btn-lg float-end mt-3">Salvar</button>
+    <div class="alert alert-danger mt-3" *ngIf="serverErrorMessages.length > 0">
+        <strong>Erro no servidor:</strong>
+        <ul>
+            <li *ngFor="let error of serverErrorMessages">{{ error }}</li>
+        </ul>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg float-end ">Salvar</button>
+    
 </form>
+
