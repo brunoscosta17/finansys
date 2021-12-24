@@ -11,6 +11,7 @@ export class Entry {
         public date?: string,
         public paid?: boolean,
         public category?: Category,
+        public categoryId?: number,
     ) {}
 
     static types = {
