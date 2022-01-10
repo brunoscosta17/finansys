@@ -40,7 +40,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
     today: 'Hoje',
     clear: 'Limpar'
-  }
+  };
 
   constructor(
     private route: ActivatedRoute,
