@@ -22,6 +22,56 @@
         </div>
         <div class="card-body">
             <div class="row">
+                <div class="form-group col-md-2">
+                    <label for="type">Tipo</label>
+                    <select name="type" id="type" formControlName="type" class="form-control">
+                        <option value="expense">Despesa</option>
+                        <option value="revenue">Receita</option>
+                    </select>
+                    <div class="text-danger" *ngIf="form.controls['type'].invalid && form.controls['type'].touched">
+                        <div *ngIf="form.controls['type'].errors?.required">Campo obrigatório!</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="description">Lançamento</label>
+                    <input type="text" name="description" id="description" class="form-control" formControlName="description">
+                    <div class="text-danger" *ngIf="form.controls['description'].invalid && form.controls['description'].touched">
+                        <div *ngIf="form.controls['description'].errors?.required">Campo obrigatório!</div>
+                        <div *ngIf="form.controls['description'].errors?.minlength">No mínimo 2 caracteres!</div>
+                    </div>
+                </div> 
+                <div class="form-group col-md-4">
+                    <label for="amount">Valor</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                R$
+                            </div>
+                        </div>
+                        <input [imask]="imaskConfig" type="text" name="amount" id="amount" class="form-control text-end" formControlName="amount">
+                    </div>
+                    <div class="text-danger" *ngIf="form.controls['amount'].invalid && form.controls['amount'].touched">
+                        <div *ngIf="form.controls['amount'].errors?.required">Campo obrigatório!</div>
+                     </div>
+                </div> 
+                <div class="form-group col-md-2">
+                    <label for="date">Data</label>
+                    <p-calendar
+                        id="date"
+                        formControlName="date"
+                        inputStyleClass="form-control bg-light text-dark border-light height: 38px"
+                        [inputStyle]="{'height':'35px'}"
+                        dataType="string"
+                        dateFormat="dd/mm/yy"
+                        [locale]="ptBR"
+                        [showButtonBar]="true">
+                    </p-calendar>
+                    <div class="text-danger" *ngIf="form.controls['date'].invalid && form.controls['date'].touched">
+                        <div *ngIf="form.controls['date'].errors?.required">Campo obrigatório!</div>
+                     </div>
+                </div> 
+            </div>
+            <div class="row">
                 <div class="form-group col-md-4">
                     <label for="name">Nome</label>
                     <input type="text" name="name" id="name" class="form-control" formControlName="name">
