@@ -71,18 +71,18 @@
                      </div>
                 </div> 
             </div>
+            
             <div class="row">
-                <div class="form-group col-md-4">
-                    <label for="name">Nome</label>
-                    <input type="text" name="name" id="name" class="form-control" formControlName="name">
-                    <div class="text-danger" *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
-                        <div *ngIf="form.controls['name'].errors?.required">Campo obrigatório!</div>
-                        <div *ngIf="form.controls['name'].errors?.minlength">No mínimo 2 caracteres!</div>
+                <div class="form-group col-md-2">
+                    <div class="btn-group">
+                        <label class="btn btn-outline-info" [class.active]="form.controls['paid'].value === true" (click)="togglePaid(true)">Pago</label>
+                        <label class="btn btn-outline-info" [class.active]="form.controls['paid'].value === false" (click)="togglePaid(false)">Pendente</label>
                     </div>
                 </div>
-                <div class="form-group col-md-8">
-                    <label for="description">Descrição</label>
-                    <input type="text" name="description" id="description" class="form-control" formControlName="description">
+                
+                <div class="text-danger" *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+                    <div *ngIf="form.controls['name'].errors?.required">Campo obrigatório!</div>
+                    <div *ngIf="form.controls['name'].errors?.minlength">No mínimo 2 caracteres!</div>
                 </div>
             </div>
         </div>

@@ -137,6 +137,10 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     }
   }
 
+  togglePaid(value: boolean): void {
+    this.form.patchValue({ paid: value });
+  }
+
   // tslint:disable-next-line: typedef
   handleSubmit(): void {
     this.submittingForm = true;
