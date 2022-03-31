@@ -22,7 +22,10 @@ export class EntryListComponent implements OnInit {
 
     this.entryService
       .getAll()
-      .subscribe(entries => this.entries = entries, error => alert('Erro ao carregar lançamentogit add s!'));
+      .subscribe(
+        entries => this.entries = entries.sort((a,b) => b.id - a.id), 
+        error => alert('Erro ao carregar lançamentogit add s!')
+      );
   }
 
   deleteEntry(entry: Entry): void {
