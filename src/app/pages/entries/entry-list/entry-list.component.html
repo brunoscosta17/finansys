@@ -14,6 +14,8 @@
     </div>
 </div>
 
+<pre>{{ entries | json }}</pre>
+
 <table class="table table-hover">
    <thead>
        <tr class="bg-primary text-light">
@@ -26,19 +28,19 @@
    <tbody>
        <tr *ngFor="let entry of entries">
            <td>
-               <strong>{{ entry.name }}</strong><br>
-               <strong class="text-success">{{ entry.date  }}</strong><br> 
-               <small *ngIf="entry.description ">{{ entry.description }}</small>
+               <strong>{{ entry?.name }}</strong><br>
+               <strong class="text-success">{{ entry?.date  }}</strong><br> 
+               <small *ngIf="entry?.description ">{{ entry?.description }}</small>
             </td>
-           <td class="align-middle">{{ entry?.name }}</td>
+           <td class="align-middle">{{ entry?.category?.name }}</td>
            <td class="align-middle text-end">
-               <strong [ngClass]="{'text-success': entry.type === 'revenue', 'text-danger': entry.type === 'expense'}">
+               <strong [ngClass]="{'text-success': entry?.type === 'revenue', 'text-danger': entry?.type === 'expense'}">
                    R${{ entry?.amount }}
                </strong> <br>
-               <span class="badge badge-light">{{ entry.paidText }}</span>
+               <span class="badge badge-light">{{ entry?.paidText }}</span>
             </td>
            <td class="align-middle text-center">
-               <a [routerLink]="['edit', entry.id]" class="btn btn-outline-info btn-sm me-2">Editar</a>
+               <a [routerLink]="['edit', entry?.id]" class="btn btn-outline-info btn-sm me-2">Editar</a>
                <a (click)="deleteEntry(entry)" class="btn btn-outline-danger btn-sm">Excluir</a>
            </td>
        </tr>

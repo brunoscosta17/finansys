@@ -2,6 +2,8 @@ import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from '../../categories/shared/category.model';
+import { CategoryService } from '../../categories/shared/category.service';
 
 import { Entry } from '../shared/entry.model';
 import { EntryService } from '../shared/entry.service';
@@ -20,6 +22,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   submittingForm = false;
   entry: Entry = new Entry();
   id!: number;
+  categories: Array<Category> = [];
 
   imaskConfig = {
     mask: Number,
@@ -47,13 +50,15 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     private router: Router,
     private formBuilder: FormBuilder,
     private entryService: EntryService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit(): void {
     this.setCurrentAction();
     this.buildEntryForm();
     this.loadEntry();
+    this.loadCategories();
   }
 
   ngAfterContentChecked(): void {
@@ -69,10 +74,10 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
       id: [null],
       name: [null, [Validators.required, Validators.minLength(2)]],
       description: [null],
-      type: [null, [Validators.required]],
+      type: ["revenue", [Validators.required]],
       amount: [null, [Validators.required]],
       date: [null, [Validators.required]],
-      paid: [null, [Validators.required]],
+      paid: [true, [Validators.required]],
       categoryId: [null, [Validators.required]],
     });
   }
@@ -137,6 +142,10 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     }
   }
 
+  private loadCategories() {
+    this.categoryService.getAll().subscribe(categories => this.categories = categories);
+  }
+
   togglePaid(value: boolean): void {
     this.form.patchValue({ paid: value });
   }
@@ -150,5 +159,14 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
       this.updateEntry();
     }
   }
+
+  get typeOptions(): Array<any> {
+    return Object.entries(Entry.types).map(
+      ([value, text]) => {
+        return { text, value };
+      }
+    );
+  }
+
 
 }

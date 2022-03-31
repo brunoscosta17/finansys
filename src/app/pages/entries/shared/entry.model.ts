@@ -11,12 +11,12 @@ export class Entry {
         public date?: string,
         public paid?: boolean,
         public category?: Category,
-        public categoryId?: number,
+        public categoryId: number = 0,
     ) {}
 
     static types = {
-        expense: 'Despesa',
-        revenue: 'Receita'
+        'expense': 'Despesa',
+        'revenue': 'Receita'
     };
 
     get paidText(): string {
